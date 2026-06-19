@@ -9,6 +9,9 @@ DIRECT_LINK = "https://omg10.com/4/11173811"
 def get_driver():
     ua = UserAgent()
     options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     options.add_argument(f'user-agent={ua.random}')
     options.add_argument('--disable-blink-features=AutomationControlled')
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
@@ -31,9 +34,6 @@ def visit_link():
         return False
 
 if __name__ == "__main__":
-    for i in range(300):  # 300 ziyaret
+    for i in range(1):
         visit_link()
-        bekle = random.randint(60, 120)  # 1-2 dakika bekle
-        print(f"{bekle} saniye bekle... ({i+1}/300)")
-        time.sleep(bekle)
-    print("300 ziyaret tamamlandı.")
+        print(f"{i+1}. ziyaret tamamlandı.")
