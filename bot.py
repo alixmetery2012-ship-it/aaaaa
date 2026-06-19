@@ -36,4 +36,4 @@ def visit_link():
 if __name__ == "__main__":
     for i in range(1):
         visit_link()
-        print(f"{i+1}. ziyaret tamamlandı.")
+        print("Test tamam.")
