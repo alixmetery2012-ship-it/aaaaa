@@ -1,0 +1,39 @@
+import time
+import random
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from fake_useragent import UserAgent
+
+DIRECT_LINK = "https://omg10.com/4/11173811"
+
+def get_driver():
+    ua = UserAgent()
+    options = Options()
+    options.add_argument(f'user-agent={ua.random}')
+    options.add_argument('--disable-blink-features=AutomationControlled')
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_experimental_option('useAutomationExtension', False)
+    driver = webdriver.Chrome(options=options)
+    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+    return driver
+
+def visit_link():
+    driver = get_driver()
+    try:
+        print("Link ziyaret ediliyor...")
+        driver.get(DIRECT_LINK)
+        time.sleep(random.uniform(8, 15))
+        driver.quit()
+        return True
+    except Exception as e:
+        print("Hata:", e)
+        driver.quit()
+        return False
+
+if __name__ == "__main__":
+    for i in range(300):  # 300 ziyaret
+        visit_link()
+        bekle = random.randint(60, 120)  # 1-2 dakika bekle
+        print(f"{bekle} saniye bekle... ({i+1}/300)")
+        time.sleep(bekle)
+    print("300 ziyaret tamamlandı.")
